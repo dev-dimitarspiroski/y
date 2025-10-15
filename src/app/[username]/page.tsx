@@ -26,7 +26,7 @@ export default async function Profile({ params }: ProfileProps) {
 
   const isViewingOwnProfile = currentUser?.user.username === username;
 
-  const isFollowing = user.followers.some(
+  const isFollowing = user?.followers.some(
     (followRecord) => followRecord.followerId === currentUser?.user.id
   );
 
@@ -37,7 +37,7 @@ export default async function Profile({ params }: ProfileProps) {
           <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-solid border-blue-500 border-2 shadow-md">
             <Image
               alt="avatar"
-              src={user.avatar ?? "https://github.com/shadcn.png"}
+              src={user?.avatar ?? "https://github.com/shadcn.png"}
               width={100}
               height={100}
             />
@@ -46,7 +46,7 @@ export default async function Profile({ params }: ProfileProps) {
             <Link href={`/${username}/edit`}>Edit profile</Link>
           ) : isFollowing ? (
             <form action={unfollowUserAction}>
-              <input type="hidden" name="followeeId" value={user.id} />
+              <input type="hidden" name="followeeId" value={user?.id} />
               <input
                 type="hidden"
                 name="followerId"
@@ -58,7 +58,7 @@ export default async function Profile({ params }: ProfileProps) {
             </form>
           ) : (
             <form action={followUserAction}>
-              <input type="hidden" name="followeeId" value={user.id} />
+              <input type="hidden" name="followeeId" value={user?.id} />
               <input
                 type="hidden"
                 name="followerId"
@@ -71,26 +71,26 @@ export default async function Profile({ params }: ProfileProps) {
           )}
         </div>
 
-        <h1 className="text-2xl font-bold mt-2">{user.name}</h1>
-        <h2 className="text-slate-400">@{user.username}</h2>
-        {user.description && <p className="mt-2">{user.description}</p>}
+        <h1 className="text-2xl font-bold mt-2">{user?.name}</h1>
+        <h2 className="text-slate-400">@{user?.username}</h2>
+        {user?.description && <p className="mt-2">{user?.description}</p>}
         <div className="flex justify-between mt-2 gap-2">
-          {user.location && (
+          {user?.location && (
             <p className="flex items-center gap-1 text-blue-400 hover:underline">
-              <MapPinIcon /> {user.location}
+              <MapPinIcon /> {user?.location}
             </p>
           )}
-          {user.url && (
+          {user?.url && (
             <p className="flex items-center gap-1 text-blue-400 hover:underline">
               <LinkIcon className="size-5" />{" "}
-              <a href={user.url} target="_blank">
-                {user.url}
+              <a href={user?.url} target="_blank">
+                {user?.url}
               </a>
             </p>
           )}
         </div>
         <div>
-          {user.joinDate && (
+          {user?.joinDate && (
             <p className="flex items-center gap-1 text-slate-400 mt-2">
               <CalendarDaysIcon className="size-5" />
               Joined {user.joinDate.toDateString()}
@@ -99,18 +99,18 @@ export default async function Profile({ params }: ProfileProps) {
         </div>
         <div className="flex gap-4 mt-2">
           <div>
-            <span className="font-bold">{user.following.length ?? 0}</span>{" "}
+            <span className="font-bold">{user?.following?.length ?? 0}</span>{" "}
             <span className="text-slate-400">Following</span>
           </div>
           <div>
-            <span className="font-bold">{user.followers.length ?? 0}</span>{" "}
+            <span className="font-bold">{user?.followers?.length ?? 0}</span>{" "}
             <span className="text-slate-400">Followers</span>
           </div>
         </div>
       </div>
 
       {/* Section to display all tweets related to this user (TweetsSection) */}
-      <TweetsSection userId={user.id} />
+      <TweetsSection userId={user?.id} />
     </div>
   );
 }

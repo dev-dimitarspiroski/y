@@ -16,7 +16,7 @@ export async function submitTweet(formData: FormData) {
   // This is asynchronous, so it will return a Promise.
   await createTweet(tweet);
 
-  revalidatePath("feed", "page");
-  revalidatePath("feed/for-you", "page");
-  revalidatePath("feed/follow", "page");
+  revalidatePath("/feed", "page");
+  revalidatePath("/feed/for-you", "page");
+  revalidatePath("/feed/follow", "page");
 }
