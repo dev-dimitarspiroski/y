@@ -3,8 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params: { userId } }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
+  const { userId } = await context.params;
   const tweets = await getUsersReplies(userId);
 
   return NextResponse.json(tweets);

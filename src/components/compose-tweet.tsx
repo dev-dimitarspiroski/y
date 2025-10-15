@@ -39,7 +39,7 @@ export default function ComposeTweet({
       setRepliedToId(id);
 
       // Fetch original tweet data from API
-      fetch(`http://localhost:3000/api/tweets/${id}`)
+      fetch(`/api/tweets/${id}`)
         .then((res) => res.json())
         .then((body) => setOriginalTweet(body));
     } else {

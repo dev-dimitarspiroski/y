@@ -6,12 +6,11 @@ import { getUserByUsername } from "../../../services/users.service";
 import editUserAction from "@/actions/edit-user.action";
 
 type EditProfileProps = {
-  params: { username: string };
+  params: Promise<{ username: string }>;
 };
 
-export default async function EditProfile({
-  params: { username },
-}: EditProfileProps) {
+export default async function EditProfile({ params }: EditProfileProps) {
+  const { username } = await params;
   const user = await getUserByUsername(username);
 
   if (!user) {

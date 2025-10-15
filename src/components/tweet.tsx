@@ -119,6 +119,7 @@ export default function Tweet({ tweet }: TweetProps) {
               {/* Hidden inputs pass data to the server action */}
               <input type="hidden" name="text" value={tweet.text} />
               <input type="hidden" name="originalTweetId" value={tweet.id} />
+              <input type="hidden" name="authorId" value={session?.user.id} />
             </form>
 
             {/* Like/Unlike Button */}

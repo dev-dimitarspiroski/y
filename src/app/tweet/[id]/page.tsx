@@ -4,12 +4,11 @@ import { TweetExtendedModel } from "@/db/schemas/tweet.schema";
 import { getTweetById } from "@/services/tweets.service";
 
 type TweetDetailsProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
-export default async function TweetDetails({
-  params: { id },
-}: TweetDetailsProps) {
+export default async function TweetDetails({ params }: TweetDetailsProps) {
+  const { id } = await params;
   const tweet = (await getTweetById(id)) as TweetExtendedModel;
 
   if (!tweet) {

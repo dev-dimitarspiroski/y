@@ -26,7 +26,7 @@ export default function Sidebar() {
       return;
     }
 
-    fetch(`http://localhost:3000/api/users/${session.user.username}`)
+    fetch(`/api/users/${session.user.username}`)
       .then((res) => res.json())
       .then((resUser) => setUser(resUser));
   }, [session]);

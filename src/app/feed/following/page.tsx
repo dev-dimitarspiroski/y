@@ -1,7 +1,7 @@
 import ComposeTweet from "@/components/compose-tweet";
 import Tweets from "@/components/tweets";
+import { TweetExtendedModel } from "@/db/schemas/tweet.schema";
 import { getTweets } from "@/services/tweets.service";
-import { Tweet } from "@/types/tweet.interface";
 
 export default async function Following() {
   const tweets = await getTweets();
@@ -9,7 +9,7 @@ export default async function Following() {
   return (
     <div>
       <ComposeTweet />
-      <Tweets tweets={tweets as unknown as Tweet[]} />
+      <Tweets tweets={tweets as TweetExtendedModel[]} />
     </div>
   );
 }

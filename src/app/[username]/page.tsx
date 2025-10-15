@@ -12,10 +12,11 @@ import Link from "next/link";
 import TweetsSection from "./(components)/tweets-section";
 
 type ProfileProps = {
-  params: { username: string };
+  params: Promise<{ username: string }>;
 };
 
-export default async function Profile({ params: { username } }: ProfileProps) {
+export default async function Profile({ params }: ProfileProps) {
+  const { username } = await params;
   const user = await getUserByUsername(username);
   const currentUser = await getNextServerSession();
 
