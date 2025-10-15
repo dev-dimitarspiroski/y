@@ -71,7 +71,7 @@ export default function Tweet({ tweet }: TweetProps) {
             <h1 className="font-bold">
               <Link href={`/${tweet.author?.username}`}>
                 {tweet.type === TweetType.Repost
-                  ? tweet.originalTweet?.author.name
+                  ? tweet.originalTweet?.author?.name
                   : tweet.author?.name}
               </Link>
             </h1>
@@ -79,7 +79,7 @@ export default function Tweet({ tweet }: TweetProps) {
               <Link href={`/${tweet.author?.username}`}>
                 @
                 {tweet.type === TweetType.Repost
-                  ? tweet.originalTweet?.author.username
+                  ? tweet.originalTweet?.author?.username
                   : tweet.author?.username}
               </Link>
             </h2>
