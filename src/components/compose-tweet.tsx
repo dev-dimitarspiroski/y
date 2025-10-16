@@ -17,51 +17,45 @@ type ComposeTweetProps = {
 };
 
 export default function ComposeTweet({
-  onSubmit = () => void 0, // Default to a no-op function
+  onSubmit = () => void 0,
 }: ComposeTweetProps) {
-  const [value, setValue] = useState(""); // Holds the text entered by the user
-  const [originalTweet, setOriginalTweet] = useState<TweetModel>(); // Holds data of the tweet being replied to (if any)
-  const [type, setType] = useState<TweetType>(TweetType.Tweet); // Type of tweet (Tweet or Reply)
-  const [repliedToId, setRepliedToId] = useState(""); // ID of the tweet being replied to
+  const [value, setValue] = useState("");
+  const [originalTweet, setOriginalTweet] = useState<TweetModel>();
+  const [type, setType] = useState<TweetType>(TweetType.Tweet);
+  const [repliedToId, setRepliedToId] = useState("");
   const { data: session } = useSession();
 
-  const searchParams = useSearchParams(); // Hook to read query parameters from the URL
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Get "type" from query parameters (e.g. ?type=Reply)
     const typeParam = searchParams.get("type");
     setType((typeParam as TweetType) || TweetType.Tweet);
 
-    // Get "repliedToId" from query parameters (e.g. ?repliedToId=123)
     const id = searchParams.get("repliedToId");
 
     if (type === TweetType.Reply && id) {
       setRepliedToId(id);
 
-      // Fetch original tweet data from API
       fetch(`/api/tweets/${id}`)
         .then((res) => res.json())
         .then((body) => setOriginalTweet(body));
     } else {
-      // Reset states if not replying
       setRepliedToId("");
       setOriginalTweet(undefined);
     }
-  }, [searchParams, type]); // Re-run when search params or type changes
+  }, [searchParams, type]);
 
   if (!session) return null;
 
   return (
     <>
-      {/* If replying, show the original tweet being replied to */}
       {originalTweet && (
         <div>
           <p className="italic text-slate-400">{originalTweet.text}</p>
         </div>
       )}
 
-      {/*  Main tweet composer layout */}
-      <div className="flex flex-row p-4 gap-4 border-b-2 border-gray-600">
+      <div className="flex flex-row p-4 gap-4">
         <div>
           <Avatar>
             <AvatarImage
@@ -75,15 +69,15 @@ export default function ComposeTweet({
           className="w-full flex flex-col items-end"
           action={async (formData) => {
             if (type === TweetType.Tweet) {
-              await submitTweet(formData); // Create a new tweet
+              await submitTweet(formData);
             }
 
             if (type === TweetType.Reply) {
-              await submitReply(formData); // Create a reply to another tweet
+              await submitReply(formData);
             }
 
-            setValue(""); // Reset the textarea value
-            onSubmit(); // Notify parent that submission is complete;
+            setValue("");
+            onSubmit();
           }}
         >
           <Textarea
@@ -93,9 +87,6 @@ export default function ComposeTweet({
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-          {/* Hidden input to include repliedToId if this is a reply */}
-          {/* A hidden input is a form element (<input type="hidden" /> that stores data you want to send to the server
-          but don't want the user to see or edit directly in the UI) */}
           <input type="hidden" name="repliedToId" value={repliedToId} />
           <input type="hidden" name="authorId" value={session?.user.id} />
           <Button

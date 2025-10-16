@@ -1,8 +1,7 @@
 "use client";
 
-import { Tabs, TabsList } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { TabsContent, TabsTrigger } from "@radix-ui/react-tabs";
 import { useState } from "react";
 import Posts from "./posts";
 import Replies from "./replies";
@@ -22,15 +21,14 @@ export default function TweetsSection({ userId }: { userId: string }) {
       defaultValue={selectedTab}
       onValueChange={(value) => setSelectedTab(value as TabsValue)}
     >
-      {/* Tab triggers for switching between Posts, Replies and Likes */}
       <TabsList>
         <TabsTrigger
           value={TabsValue.Posts}
           className={cn(
             "py-3 px-5 cursor-pointer",
             selectedTab === TabsValue.Posts &&
-              "font-black border-b-4 border-blue-400", // Highlight the selected tab.
-            selectedTab !== TabsValue.Posts && "text-slate-400" // Dim unselected tabs.
+              "font-black border-b-4 border-blue-400",
+            selectedTab !== TabsValue.Posts && "text-slate-400"
           )}
         >
           Posts
@@ -40,8 +38,8 @@ export default function TweetsSection({ userId }: { userId: string }) {
           className={cn(
             "py-3 px-5 cursor-pointer",
             selectedTab === TabsValue.Replies &&
-              "font-black border-b-4 border-blue-400", // Highlight the selected tab.
-            selectedTab !== TabsValue.Replies && "text-slate-400" // Dim unselected tabs.
+              "font-black border-b-4 border-blue-400",
+            selectedTab !== TabsValue.Replies && "text-slate-400"
           )}
         >
           Replies
@@ -58,7 +56,6 @@ export default function TweetsSection({ userId }: { userId: string }) {
           Likes
         </TabsTrigger>
       </TabsList>
-      {/* Tabs content: show the corresponding component based on selected tab */}
       <TabsContent value={TabsValue.Posts}>
         <Posts userId={userId} />
       </TabsContent>

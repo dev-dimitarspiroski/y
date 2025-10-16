@@ -7,14 +7,12 @@ export const follows = pgTable(
   {
     followerId: uuid("follower_id")
       .notNull()
-      .references(() => users.id), // links to the 'users' table (users.id)
+      .references(() => users.id),
     followeeId: uuid("folowee_id")
       .notNull()
       .references(() => users.id),
   },
 
-  // Composite primary key (folowerId + foloweeId)
-  // This prevents duplicate relationships (e.g. John Doe follows Jane Doe twice).
   (table) => ({
     pk: primaryKey({ columns: [table.followerId, table.followeeId] }),
   })

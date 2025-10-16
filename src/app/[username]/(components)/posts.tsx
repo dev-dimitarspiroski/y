@@ -9,9 +9,9 @@ export default function Posts({ userId }: { userId: string }) {
 
   useEffect(() => {
     fetch(`/api/tweets/user/${userId}/posts`)
-      .then((res) => res.json()) // Parse the response as JSON.
-      .then((tweetsRes) => setTweets(tweetsRes)); // Update state with the fetched tweets
-  }, [userId]); // Dependency array: re-run effect if userId changes.
+      .then((res) => res.json())
+      .then((tweetsRes) => setTweets(tweetsRes));
+  }, [userId]);
 
   return <Tweets tweets={tweets} />;
 }

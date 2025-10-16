@@ -1,15 +1,19 @@
 import ComposeTweet from "@/components/compose-tweet";
 import Tweets from "@/components/tweets";
 import { TweetExtendedModel } from "@/db/schemas/tweet.schema";
-import { getTweets } from "@/services/tweets.service";
+import { getNextServerSession } from "@/lib/next-auth";
+import { getTweetsFromFollowers } from "@/services/tweets.service";
 
 export default async function Following() {
-  const tweets = await getTweets();
+  const session = await getNextServerSession();
+  const tweetsFromFollowers = await getTweetsFromFollowers(
+    session?.user.id ?? ""
+  );
 
   return (
     <div>
       <ComposeTweet />
-      <Tweets tweets={tweets as TweetExtendedModel[]} />
+      <Tweets tweets={tweetsFromFollowers as TweetExtendedModel[]} />
     </div>
   );
 }

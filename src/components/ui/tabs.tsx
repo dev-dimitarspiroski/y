@@ -51,7 +51,7 @@ function TabsContent({
     <TabsPrimitive.Content
       data-slot="tabs-content"
       className={cn(
-        "mt-2 px-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+        "ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
         className
       )}
       {...props}

@@ -34,7 +34,7 @@ export default async function Profile({ params }: ProfileProps) {
     <div>
       <div className="p-4">
         <div className="flex justify-between">
-          <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-solid border-blue-500 border-2 shadow-md">
+          <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-solid border-blue-500 border-1 shadow-md">
             <Image
               alt="avatar"
               src={user?.avatar ?? "https://github.com/shadcn.png"}
@@ -43,7 +43,12 @@ export default async function Profile({ params }: ProfileProps) {
             />
           </div>
           {isViewingOwnProfile ? (
-            <Link href={`/${username}/edit`}>Edit profile</Link>
+            <Link
+              href={`/${username}/edit`}
+              className="border-solid border-1 border-white text-sm font-bold shadow-md px-4 py-2 text-white h-10 rounded-full cursor-pointer transition-all duration-300 hover:border-blue-500 hover:text-blue-500"
+            >
+              Edit profile
+            </Link>
           ) : isFollowing ? (
             <form action={unfollowUserAction}>
               <input type="hidden" name="followeeId" value={user?.id} />
@@ -52,7 +57,7 @@ export default async function Profile({ params }: ProfileProps) {
                 name="followerId"
                 value={currentUser?.user.id}
               />
-              <button className="border-solid border-2 border-white text-sm font-bold shadow-md px-4 py-2 text-white h-10 rounded-full">
+              <button className="border-solid border-1 border-white text-sm font-bold shadow-md px-4 py-2 text-white h-10 rounded-full cursor-pointer hover:transition-all duration-300 hover:border-blue-500 hover:text-blue-500">
                 Unfollow
               </button>
             </form>
@@ -64,7 +69,7 @@ export default async function Profile({ params }: ProfileProps) {
                 name="followerId"
                 value={currentUser?.user.id}
               />
-              <button className="border-solid border-2 border-white text-sm font-bold shadow-md px-4 py-2 text-white h-10 rounded-full">
+              <button className="border-solid border-1 border-white text-sm font-bold shadow-md px-4 py-2 text-white h-10 rounded-full cursor-pointer transition-all duration-300 hover:border-blue-500 hover:text-blue-500">
                 Follow
               </button>
             </form>
@@ -109,7 +114,6 @@ export default async function Profile({ params }: ProfileProps) {
         </div>
       </div>
 
-      {/* Section to display all tweets related to this user (TweetsSection) */}
       <TweetsSection userId={user?.id} />
     </div>
   );

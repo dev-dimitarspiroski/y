@@ -1,7 +1,3 @@
-// So when a user asks for tweets:
-// User -> Controller -> Service -> Repository -> Database
-// ...and the data comes back the same way in reverse.
-
 import {
   TweetCreateModel,
   TweetExtendedModel,
@@ -10,9 +6,11 @@ import { getNextServerSession } from "@/lib/next-auth";
 import {
   create,
   find,
+  findLikedTweets,
   findOneById,
   findRepliesByUserId,
   findTweetsByUserId,
+  findTweetsFromFollowers,
 } from "@/repositories/tweets.repository";
 import {
   create as createLike,
@@ -21,7 +19,6 @@ import {
 import { getUserById } from "./users.service";
 
 export const getTweets = async (searchTerm?: string | null) => {
-  // call repository to get base tweets (type from repo: TweetModel[])
   const tweets = await find(searchTerm ?? null);
 
   return tweets as TweetExtendedModel[];
@@ -47,6 +44,14 @@ export const getUsersReplies = async (userId: string) => {
   return findRepliesByUserId(userId);
 };
 
+export const getTweetsFromFollowers = async (userId: string) => {
+  return findTweetsFromFollowers(userId);
+};
+
+export const getLikedTweets = async (userId: string) => {
+  return findLikedTweets(userId);
+};
+
 export const getUsersLikedTweets = async (userId: string) => {
   const user = await getUserById(userId);
 
@@ -58,19 +63,14 @@ export const getUsersLikedTweets = async (userId: string) => {
 };
 
 export const getTweetById = async (id: string) => {
-  // Simple delegation to the repository.
   const tweet = await findOneById(id);
 
   return tweet;
 };
 
 export const createTweet = async (tweet: TweetCreateModel) => {
-  // Call repository 'create' which performs the DB insert and returns the inserted row.
   const createdTweet = await create(tweet);
 
-  console.log("created tweet: ", createdTweet);
-
-  // Retrun the created row to the caller (controller or API route)
   return createdTweet;
 };
 

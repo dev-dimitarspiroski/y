@@ -7,7 +7,7 @@ import Providers from "./providers";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans", // This provides a class (inter.variable) which sets a CSS variable
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -29,15 +29,13 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <main className="min-h-screen flex flex-col items-center">
-            <article className="flex flex-row w-full h-screen">
-              <section className="w-80 px-4 py-2">
-                <Sidebar />
-              </section>
-              <section className="w-full border-gray-600 border-l-2 p-0">
-                {children}
-              </section>
-            </article>
+          <main className="min-h-screen flex">
+            <aside className="fixed top-0 left-0 w-64 h-screen pl-15 pr-6 py-2 border-gray-600 border-r-1">
+              <Sidebar />
+            </aside>
+            <section className="flex-1 ml-64">
+              <div className="min-h-screen flex flex-col">{children}</div>
+            </section>
           </main>
         </Providers>
       </body>

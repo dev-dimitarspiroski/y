@@ -31,7 +31,6 @@ export const db = drizzle<{
     usersFollowersRelations,
     usersLikedTweetsRelations,
   },
-  logger: true,
 });
 
 export type Db = typeof db;

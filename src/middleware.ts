@@ -2,9 +2,10 @@ export { default } from "next-auth/middleware";
 
 export const config = {
   matcher: [
-    "/feed/:path*", // Protects all subpages under /feed
-    "/explore", // Protects the /explore page
-    "/messages", // Protects the /messages page
-    "/:path*/edit", // Protects any edit page (e.g. /username/edit)
+    "/feed/:path*",
+    "/explore",
+    "/messages",
+    "/:path*/edit",
+    "/((?!login$|register$)[^/]+)", // match any single-segment route except /login
   ],
 };

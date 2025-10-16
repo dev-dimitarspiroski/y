@@ -6,12 +6,11 @@ import { redirect } from "next/navigation";
 
 export default async function registerUser(formData: FormData) {
   const newUser: UserCreateModel = {
-    name: formData.get("name") as string, // Gets the 'name' field
-    username: formData.get("username") as string, // Gets the 'username' field
-    password: formData.get("password") as string, // Gets the 'password' field
+    name: formData.get("name") as string,
+    username: formData.get("username") as string,
+    password: formData.get("password") as string, 
   };
 
-  // Creates the user in the database
   await createUser(newUser);
 
   redirect("/login");

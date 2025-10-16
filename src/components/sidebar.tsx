@@ -32,7 +32,7 @@ export default function Sidebar() {
   }, [session]);
 
   return (
-    <ol className="flex flex-col gap-3 py-2 h-full">
+    <ol className="flex flex-col gap-3 p-2 h-full w-full">
       {session && user ? (
         <>
           <li>
@@ -73,7 +73,7 @@ export default function Sidebar() {
           <li>
             <Link
               href={`/feed/compose`}
-              className="w-full bg-blue-500 p-4 rounded-full text-center font-bold block cursor-pointer"
+              className="w-full bg-blue-500 p-2 rounded-full text-center font-bold block cursor-pointer"
             >
               Post
             </Link>
@@ -83,7 +83,7 @@ export default function Sidebar() {
               href={`/${session.user.username}`}
               className="flex items-center gap-2"
             >
-              <div className="w-10 h-10 rounded-full overflow-hidden border-solid border-blue-500 border-2  shadow-md">
+              <div className="w-10 h-10 rounded-full overflow-hidden border-solid border-blue-500 border-1  shadow-md">
                 <Image
                   alt="avatar"
                   src={user?.avatar ?? "https://github.com/shadcn.png"}
@@ -92,7 +92,7 @@ export default function Sidebar() {
                 />
                 <div className="w-10">
                   <h1 className="font-bold">{user?.name}</h1>
-                  <p className="text-md text-slate-500">@{user?.username}</p>
+                  <p className="text-md text-white">@{user?.username}</p>
                 </div>
               </div>
             </Link>

@@ -7,13 +7,13 @@ import { revalidatePath } from "next/cache";
 
 export async function repostTweet(formData: FormData) {
   const text = formData.get("text") as string;
-  const originalTweetId = formData.get("originalTweetId") as string; // The ID of the tweet being reposted
+  const originalTweetId = formData.get("originalTweetId") as string;
   const authorId = formData.get("authorId") as string;
 
   const tweet: TweetCreateModel = {
-    text, // Caption or additional text for the repost
-    originalTweetId, // Link this repost to the original tweet
-    type: TweetType.Repost, // Identify (mark) this tweet as a "Repost"
+    text,
+    originalTweetId, 
+    type: TweetType.Repost,
     authorId,
   };
 

@@ -3,6 +3,7 @@ import {
   create,
   findById,
   findByUsername,
+  findFollowers,
   update,
 } from "@/repositories/users.repository";
 import {
@@ -19,6 +20,10 @@ export async function getUserById(id: string) {
   return findById(id);
 }
 
+export async function getFollowers(id: string) {
+  return findFollowers(id);
+}
+
 export async function createUser(userData: UserCreateModel) {
   const existingUser = await getUserByUsername(userData.username);
 
@@ -28,10 +33,10 @@ export async function createUser(userData: UserCreateModel) {
 
   const userWithEncryptedPassword: UserCreateModel = {
     ...userData,
-    password: bcrypt.hashSync(userData.password, 10), // Hashes the password before saving.
+    password: bcrypt.hashSync(userData.password, 10),
   };
 
-  return create(userWithEncryptedPassword); // Saves user to DB
+  return create(userWithEncryptedPassword);
 }
 
 export async function loginUser({
@@ -47,13 +52,13 @@ export async function loginUser({
     throw new Error("Invalid credentials");
   }
 
-  const isPasswordEqual = bcrypt.compareSync(password, existingUser.password); // Compares hashed passwords.
+  const isPasswordEqual = bcrypt.compareSync(password, existingUser.password);
 
   if (!isPasswordEqual) {
     throw new Error("Invalid credentials");
   }
 
-  return existingUser; // Return user if login is successful.
+  return existingUser;
 }
 
 export async function updateUser(

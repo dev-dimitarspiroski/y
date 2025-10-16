@@ -13,8 +13,8 @@ export async function create(followerId: string, followeeId: string) {
 export async function deleteFollow(followerId: string, followeeId: string) {
   return db.delete(follows).where(
     and(
-      eq(follows.followerId, followerId), // Match the follower ID
-      eq(follows.followeeId, followeeId) // Match the followee ID
+      eq(follows.followerId, followerId),
+      eq(follows.followeeId, followeeId)
     )
   );
 }

@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import Tweets from "@/components/tweets";
 import { TweetExtendedModel } from "@/db/schemas/tweet.schema";
@@ -10,8 +10,8 @@ export default function Likes({ userId }: { userId: string }) {
   useEffect(() => {
     fetch(`/api/tweets/user/${userId}/likes`)
       .then((res) => res.json())
-      .then((tweetRes) => setTweets(tweetRes));
-  });
+      .then((tweetsRes) => setTweets(tweetsRes));
+  }, [userId]);
 
   return <Tweets tweets={tweets} />;
 }

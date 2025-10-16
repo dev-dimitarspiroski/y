@@ -11,10 +11,12 @@ export const create = (tweetId: string, userId: string) => {
 };
 
 export const deleteLike = (tweetId: string, userId: string) => {
-  return db.delete(usersLikedTweets).where(
-    and(
-      eq(usersLikedTweets.tweetId, tweetId), // Match the tweet ID
-      eq(usersLikedTweets.userId, userId) // Match the user ID
-    )
-  );
+  return db
+    .delete(usersLikedTweets)
+    .where(
+      and(
+        eq(usersLikedTweets.tweetId, tweetId),
+        eq(usersLikedTweets.userId, userId)
+      )
+    );
 };

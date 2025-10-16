@@ -31,12 +31,10 @@ export default function LoginForm() {
       <button
         type="button"
         onClick={async () => {
-          const response = await signIn("credentials", {
+          await signIn("credentials", {
             username,
             password,
           });
-
-          console.log("REPONSE FROM FORM: ", response);
         }}
         className="bg-blue-500 rounded-md px-4 py-2 text-white w-20 cursor-pointer"
       >

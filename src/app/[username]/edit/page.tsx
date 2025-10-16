@@ -23,10 +23,9 @@ export default async function EditProfile({ params }: EditProfileProps) {
       action={editUserAction}
     >
       <h1 className="text-2xl font-bold">Edit Profile</h1>
-      {/* Hidden input to pass the user's ID to the server */}
+
       <input type="hidden" name="id" value={user.id} />
 
-      {/* Name field */}
       <div className="w-full">
         <Label htmlFor="name">Name</Label>
         <Input
@@ -38,7 +37,6 @@ export default async function EditProfile({ params }: EditProfileProps) {
         />
       </div>
 
-      {/* Username field */}
       <div className="w-full">
         <Label htmlFor="username">Username</Label>
         <Input
@@ -50,7 +48,6 @@ export default async function EditProfile({ params }: EditProfileProps) {
         />
       </div>
 
-      {/* Location field */}
       <div className="w-full">
         <Label htmlFor="location">Location</Label>
         <Input
@@ -62,7 +59,6 @@ export default async function EditProfile({ params }: EditProfileProps) {
         />
       </div>
 
-      {/* URL field */}
       <div className="w-full">
         <Label htmlFor="url">URL</Label>
         <Input
@@ -74,7 +70,6 @@ export default async function EditProfile({ params }: EditProfileProps) {
         />
       </div>
 
-      {/* Avatar field */}
       <div className="w-full">
         <Label htmlFor="avatar">Avatar</Label>
         <Input
@@ -86,7 +81,6 @@ export default async function EditProfile({ params }: EditProfileProps) {
         />
       </div>
 
-      {/* Description field */}
       <div className="w-full">
         <Label htmlFor="description">Description</Label>
         <Textarea
@@ -97,7 +91,6 @@ export default async function EditProfile({ params }: EditProfileProps) {
         ></Textarea>
       </div>
 
-      {/* Submit button to save changes */}
       <Button type="submit">Save</Button>
     </form>
   );

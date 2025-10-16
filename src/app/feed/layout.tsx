@@ -1,8 +1,7 @@
 "use client";
 
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { TabsContent } from "@radix-ui/react-tabs";
 import { useRouter } from "next/navigation";
 import { ReactNode, useState } from "react";
 
@@ -27,8 +26,9 @@ export default function FeedLayout({ children, compose }: FeedLayoutProps) {
         setSelectedTab(value as TabsValue);
         router.push(`/feed/${value}`);
       }}
+      className="w-full"
     >
-      <TabsList className="border-b-2 border-gray-600">
+      <TabsList className="border-b-1 border-gray-600">
         <TabsTrigger
           value={TabsValue.ForYou}
           className={cn(

@@ -2,10 +2,10 @@ import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
   schema: [
-    "./src/db/schemas/tweet.schema.ts", // Schema for tweets table
-    "./src/db/schemas/user.schema.ts", // Schema for users table
-    "./src/db/schemas/users_follows.schema.ts", // Schema for users follows
-    "./src/db/schemas/user_liked_tweets.ts", //Schema for users likes
+    "./src/db/schemas/tweet.schema.ts",
+    "./src/db/schemas/user.schema.ts",
+    "./src/db/schemas/users_follows.schema.ts",
+    "./src/db/schemas/user_liked_tweets.ts",
   ],
   out: "",
   dialect: "postgresql",
