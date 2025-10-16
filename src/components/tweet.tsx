@@ -17,7 +17,7 @@ import { repostTweet } from "@/actions/repost-tweet.action";
 import { useSession } from "next-auth/react";
 import { TweetDate } from "./ui/tweet-date";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 
 type TweetProps = {
   tweet: TweetExtendedModel;
