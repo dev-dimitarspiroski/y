@@ -51,7 +51,9 @@ export default function ComposeTweet({
     <>
       {originalTweet && (
         <div>
-          <p className="italic text-slate-400">{originalTweet.text}</p>
+          <p className="whitespace-break-spaces italic text-slate-400">
+            {originalTweet.text}
+          </p>
         </div>
       )}
 

@@ -118,7 +118,7 @@ export default function Tweet({ tweet }: TweetProps) {
             </p>
           </div>
 
-          <p>{tweet.text}</p>
+          <div className="whitespace-break-spaces">{tweet.text}</div>
 
           <div className="flex flex-row gap-4 items-center mt-2 justify-between">
             <div>
