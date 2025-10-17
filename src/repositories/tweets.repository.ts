@@ -62,8 +62,8 @@ export const findTweetsFromFollowers = (userId: string) =>
     .select({ tweet: tweets, author: users })
     .from(tweets)
     .innerJoin(users, eq(tweets.authorId, users.id))
-    .innerJoin(follows, eq(follows.followerId, users.id))
-    .where(eq(follows.followeeId, userId))
+    .innerJoin(follows, eq(follows.followeeId, users.id))
+    .where(eq(follows.followerId, userId))
     .orderBy(desc(tweets.createdAt))
     .then((rows) => rows.map((row) => ({ ...row.tweet, author: row.author })));
 
