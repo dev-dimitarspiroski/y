@@ -12,10 +12,9 @@ enum TabsValue {
 
 type FeedLayoutProps = {
   children: ReactNode;
-  compose: ReactNode;
 };
 
-export default function FeedLayout({ children, compose }: FeedLayoutProps) {
+export default function FeedLayout({ children }: FeedLayoutProps) {
   const router = useRouter();
   const pathname = usePathname();
   const defaultTab = pathname.includes(TabsValue.ForYou as string)
@@ -58,7 +57,6 @@ export default function FeedLayout({ children, compose }: FeedLayoutProps) {
       </TabsList>
       <TabsContent value={TabsValue.ForYou}>{children}</TabsContent>
       <TabsContent value={TabsValue.Following}>{children}</TabsContent>
-      {compose}
     </Tabs>
   );
 }

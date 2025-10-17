@@ -20,7 +20,6 @@ import { TweetDate } from "./ui/tweet-date";
 import { usePathname } from "next/navigation";
 import { useState, useTransition } from "react";
 import ComposeTweetDialog from "./compose-tweet.dialog";
-import { deleteTweetFromDb } from "@/repositories/tweets.repository";
 import { deleteTweetAction } from "@/actions/delete-tweet.action";
 
 type TweetProps = {

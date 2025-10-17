@@ -40,7 +40,7 @@ export default function ComposeTweet({
     } else {
       setOriginalTweet(undefined);
     }
-  }, [searchParams, type]);
+  }, [searchParams, type, isReply, repliedToId]);
 
   if (!session) return null;
 
