@@ -10,7 +10,7 @@ export default async function ForYou() {
 
   return (
     <div>
-      <ComposeTweet />
+      <ComposeTweet isReply={false} repliedToId="" />
       <Tweets tweets={tweets as TweetExtendedModel[]} />
     </div>
   );

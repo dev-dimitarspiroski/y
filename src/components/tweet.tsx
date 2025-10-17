@@ -8,6 +8,7 @@ import {
   ChatBubbleOvalLeftIcon,
   HeartIcon,
   LinkIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { TweetExtendedModel } from "@/db/schemas/tweet.schema";
@@ -18,6 +19,9 @@ import { useSession } from "next-auth/react";
 import { TweetDate } from "./ui/tweet-date";
 import { usePathname } from "next/navigation";
 import { useState, useTransition } from "react";
+import ComposeTweetDialog from "./compose-tweet.dialog";
+import { deleteTweetFromDb } from "@/repositories/tweets.repository";
+import { deleteTweetAction } from "@/actions/delete-tweet.action";
 
 type TweetProps = {
   tweet: TweetExtendedModel;
@@ -33,6 +37,7 @@ export default function Tweet({ tweet }: TweetProps) {
   const [likesCount, setLikesCount] = useState<number>(
     tweet.likes?.length ?? 0
   );
+  const [openModal, setOpenModal] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const toggleLike = () => {
@@ -121,19 +126,17 @@ export default function Tweet({ tweet }: TweetProps) {
           <div className="whitespace-break-spaces">{tweet.text}</div>
 
           <div className="flex flex-row gap-4 items-center mt-2 justify-between">
-            <div>
-              <Link
-                className="flex flex-row gap-2 items-center"
-                href={`/feed/compose?type=${TweetType.Reply}&repliedToId=${tweet.id}`}
-              >
-                <ChatBubbleOvalLeftIcon className="size-7 text-slate-500 cursor-pointer" />
-                <span>{tweet.replies?.length ?? 0}</span>
-              </Link>
+            <div
+              className="flex flex-row gap-2 items-center"
+              onClick={() => setOpenModal(true)}
+            >
+              <ChatBubbleOvalLeftIcon className="size-7 text-slate-500 cursor-pointer transition-colors hover:text-blue-500" />
+              <span>{tweet.replies?.length ?? 0}</span>
             </div>
 
             <form action={repostTweet}>
               <button className="flex flex-row gap-2 items-center">
-                <ArrowPathRoundedSquareIcon className="size-7 text-slate-500 cursor-pointer" />
+                <ArrowPathRoundedSquareIcon className="size-7 text-slate-500 cursor-pointer transition-colors hover:text-blue-500" />
                 <span>{tweet.reposts?.length ?? 0}</span>
               </button>
 
@@ -153,21 +156,38 @@ export default function Tweet({ tweet }: TweetProps) {
               className="flex flex-row gap-2 items-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {!isLiked ? (
-                <HeartIcon className="size-7 text-slate-500" />
+                <HeartIcon className="size-7 text-slate-500 transition-colors hover:text-blue-500" />
               ) : (
-                <HeartIconSolid className="size-7 text-red-500" />
+                <HeartIconSolid className="size-7 text-red-500 transition-colors hover:text-blue-500" />
               )}
               <span>{likesCount}</span>
             </button>
 
             <div className="flex flex-row gap-2 items-center">
               <Link href={`/tweet/${tweet.id}`}>
-                <LinkIcon className="size-7 text-slate-500 cursor-pointer" />
+                <LinkIcon className="size-7 text-slate-500 cursor-pointer transition-colors hover:text-blue-500" />
               </Link>
             </div>
+
+            {session?.user.id === tweet.authorId && (
+              <form action={deleteTweetAction}>
+                <button className="flex flex-row gap-2 items-center">
+                  <TrashIcon className="size-7 text-slate-500 cursor-pointer transition-colors hover:text-blue-500" />
+                </button>
+                <input type="hidden" name="tweetId" value={tweet.id} />
+              </form>
+            )}
           </div>
         </div>
       </div>
+      {openModal && (
+        <ComposeTweetDialog
+          onClose={() => setOpenModal(false)}
+          isModalOpen={openModal}
+          isReply={true}
+          repliedToId={tweet.id}
+        />
+      )}
     </div>
   );
 }

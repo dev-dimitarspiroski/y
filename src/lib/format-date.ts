@@ -13,7 +13,7 @@ export function formatDate(createdAt: string | Date): string {
   const secondsInYear = 365 * secondsInDay;
 
   if (diffInSeconds < secondsInMinute) {
-    return `${diffInSeconds}s`;
+    return diffInSeconds < 0 ? "now" : `${diffInSeconds}s`;
   } else if (diffInSeconds < secondsInHour) {
     const minutes = Math.floor(diffInSeconds / secondsInMinute);
 

@@ -65,7 +65,7 @@ export const findTweetsFromFollowers = (userId: string) =>
     .innerJoin(follows, eq(follows.followerId, users.id))
     .where(eq(follows.followeeId, userId))
     .orderBy(desc(tweets.createdAt))
-    .then((rows) => rows.map((row) => ({ ...row.tweet })));
+    .then((rows) => rows.map((row) => ({ ...row.tweet, author: row.author })));
 
 export const findLikedTweets = async (
   userId: string
@@ -106,7 +106,7 @@ export const findOneById = (id: string) => {
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -114,6 +114,16 @@ export const create = (tweet: TweetCreateModel): Promise<TweetModel> => {
   return db
     .insert(tweets)
     .values(tweet)
+    .returning()
+    .then((res) => res?.[0]);
+};
+
+export const deleteTweetFromDb = async (
+  id: string
+): Promise<TweetModel | undefined> => {
+  return db
+    .delete(tweets)
+    .where(eq(tweets.id, id))
     .returning()
     .then((res) => res?.[0]);
 };

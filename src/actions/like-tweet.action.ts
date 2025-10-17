@@ -13,7 +13,6 @@ export async function likeTweetAction(formData: FormData) {
   } else {
     await unlikeTweet(tweetId);
   }
-  console.log("PATH: ", path)
   revalidatePath(path);
   revalidatePath(`/tweet/${tweetId}`);
 }

@@ -15,10 +15,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import ComposeTweetDialog from "./compose-tweet.dialog";
 
 export default function Sidebar() {
   const { data: session } = useSession();
   const [user, setUser] = useState<UserModel>();
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     if (!session?.user?.username) {
@@ -71,12 +73,12 @@ export default function Sidebar() {
             </Button>
           </li>
           <li>
-            <Link
-              href={`/feed/compose`}
+            <div
               className="w-full bg-blue-500 p-2 rounded-full text-center font-bold block cursor-pointer"
+              onClick={() => setOpenModal(true)}
             >
               Post
-            </Link>
+            </div>
           </li>
           <li className="mt-auto">
             <Link
@@ -114,6 +116,15 @@ export default function Sidebar() {
           </li>
         </>
       )}
+      <>
+        {openModal && (
+          <ComposeTweetDialog
+            onClose={() => setOpenModal(false)}
+            isModalOpen={openModal}
+            isReply={false}
+          />
+        )}
+      </>
     </ol>
   );
 }

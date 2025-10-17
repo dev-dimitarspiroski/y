@@ -12,7 +12,7 @@ export default async function Following() {
 
   return (
     <div>
-      <ComposeTweet />
+      <ComposeTweet isReply={false} repliedToId="" />
       <Tweets tweets={tweetsFromFollowers as TweetExtendedModel[]} />
     </div>
   );

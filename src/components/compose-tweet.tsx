@@ -13,34 +13,31 @@ import { submitReply } from "@/actions/reply.action";
 import { useSession } from "next-auth/react";
 
 type ComposeTweetProps = {
+  isReply: boolean;
+  repliedToId: string;
   onSubmit?: () => void;
 };
 
 export default function ComposeTweet({
+  isReply,
+  repliedToId,
   onSubmit = () => void 0,
 }: ComposeTweetProps) {
   const [value, setValue] = useState("");
   const [originalTweet, setOriginalTweet] = useState<TweetModel>();
   const [type, setType] = useState<TweetType>(TweetType.Tweet);
-  const [repliedToId, setRepliedToId] = useState("");
   const { data: session } = useSession();
 
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const typeParam = searchParams.get("type");
-    setType((typeParam as TweetType) || TweetType.Tweet);
+    setType(isReply ? TweetType.Reply : TweetType.Tweet);
 
-    const id = searchParams.get("repliedToId");
-
-    if (type === TweetType.Reply && id) {
-      setRepliedToId(id);
-
-      fetch(`/api/tweets/${id}`)
+    if (type === TweetType.Reply && repliedToId) {
+      fetch(`/api/tweets/${repliedToId}`)
         .then((res) => res.json())
         .then((body) => setOriginalTweet(body));
     } else {
-      setRepliedToId("");
       setOriginalTweet(undefined);
     }
   }, [searchParams, type]);

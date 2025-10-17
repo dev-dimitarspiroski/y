@@ -5,6 +5,7 @@ import {
 import { getNextServerSession } from "@/lib/next-auth";
 import {
   create,
+  deleteTweetFromDb,
   find,
   findLikedTweets,
   findOneById,
@@ -72,6 +73,10 @@ export const createTweet = async (tweet: TweetCreateModel) => {
   const createdTweet = await create(tweet);
 
   return createdTweet;
+};
+
+export const deleteTweet = async (id: string) => {
+  await deleteTweetFromDb(id);
 };
 
 export const likeTweet = async (tweetId: string) => {

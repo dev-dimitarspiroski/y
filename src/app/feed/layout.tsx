@@ -2,7 +2,7 @@
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useState } from "react";
 
 enum TabsValue {
@@ -16,12 +16,16 @@ type FeedLayoutProps = {
 };
 
 export default function FeedLayout({ children, compose }: FeedLayoutProps) {
-  const [selectedTab, setSelectedTab] = useState<TabsValue>(TabsValue.ForYou);
   const router = useRouter();
+  const pathname = usePathname();
+  const defaultTab = pathname.includes(TabsValue.ForYou as string)
+    ? TabsValue.ForYou
+    : TabsValue.Following;
+  const [selectedTab, setSelectedTab] = useState<TabsValue>(defaultTab);
 
   return (
     <Tabs
-      defaultValue={TabsValue.ForYou}
+      defaultValue={defaultTab}
       onValueChange={(value) => {
         setSelectedTab(value as TabsValue);
         router.push(`/feed/${value}`);
