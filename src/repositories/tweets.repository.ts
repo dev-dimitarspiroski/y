@@ -21,6 +21,7 @@ export const find = (searchTerm: string | null): Promise<TweetModel[]> => {
         reposts: true,
         likes: true,
         author: true,
+        originalTweet: { with: { author: true } },
       },
     });
   } catch (error) {
@@ -37,8 +38,8 @@ export const findTweetsByUserId = (userId: string) => {
       author: true,
       replies: true,
       reposts: true,
-      originalTweet: true,
       repliedTo: true,
+      originalTweet: { with: { author: true } },
     },
   });
 };
@@ -51,21 +52,37 @@ export const findRepliesByUserId = (userId: string) => {
       author: true,
       replies: true,
       reposts: true,
-      originalTweet: true,
       repliedTo: true,
+      originalTweet: { with: { author: true } },
     },
   });
 };
 
-export const findTweetsFromFollowers = (userId: string) =>
-  db
-    .select({ tweet: tweets, author: users })
-    .from(tweets)
-    .innerJoin(users, eq(tweets.authorId, users.id))
-    .innerJoin(follows, eq(follows.followeeId, users.id))
-    .where(eq(follows.followerId, userId))
-    .orderBy(desc(tweets.createdAt))
-    .then((rows) => rows.map((row) => ({ ...row.tweet, author: row.author })));
+export const findTweetsFromFollowers = async (
+  userId: string
+): Promise<TweetModel[]> => {
+  const followees = await db
+    .select({ followeeId: follows.followeeId })
+    .from(follows)
+    .where(eq(follows.followerId, userId));
+
+  const followeeIds = followees.map((followee) => followee.followeeId);
+
+  if (followeeIds.length === 0) return [];
+
+  return db.query.tweets.findMany({
+    where: inArray(tweets.authorId, followeeIds),
+    orderBy: desc(tweets.createdAt),
+    with: {
+      likes: true,
+      author: true,
+      replies: true,
+      reposts: true,
+      repliedTo: true,
+      originalTweet: { with: { author: true } },
+    },
+  });
+};
 
 export const findLikedTweets = async (
   userId: string
@@ -86,8 +103,8 @@ export const findLikedTweets = async (
       author: true,
       replies: true,
       reposts: true,
-      originalTweet: true,
       repliedTo: true,
+      originalTweet: { with: { author: true } },
     },
   });
 };
@@ -101,8 +118,8 @@ export const findOneById = (id: string) => {
         author: true,
         replies: true,
         reposts: true,
-        originalTweet: true,
         repliedTo: true,
+        originalTweet: { with: { author: true } },
       },
     });
   } catch (error) {
