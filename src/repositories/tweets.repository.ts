@@ -6,7 +6,6 @@ import {
   tweets,
 } from "@/db/schemas/tweet.schema";
 import { TweetType } from "@/types/tweet-type.enum";
-import { users } from "@/db/schemas/user.schema";
 import { follows } from "@/db/schemas/users_follows.schema";
 import { usersLikedTweets } from "@/db/schemas/user_liked_tweets";
 
@@ -25,7 +24,6 @@ export const find = (searchTerm: string | null): Promise<TweetModel[]> => {
       },
     });
   } catch (error) {
-    console.log(error);
     return Promise.resolve([]);
   }
 };
