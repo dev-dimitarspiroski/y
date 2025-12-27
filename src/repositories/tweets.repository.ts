@@ -24,6 +24,7 @@ export const find = (searchTerm: string | null): Promise<TweetModel[]> => {
       },
     });
   } catch (error) {
+    console.log(error);
     return Promise.resolve([]);
   }
 };
