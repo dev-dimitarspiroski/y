@@ -10,7 +10,7 @@ The UI relies on Shadcn components, wrapped with base styling to enable further 
 
 1. [Next JS](https://nextui.org/) :smile:
 2. [Tailwind CSS](https://tailwindcss.com/)
-3. [Shadcn UI](https://ui.chad.sh/)
+3. [Shadcn UI](https://ui.shadcn.com/)
 4. [TypeScript](https://www.typescriptlang.org/)
 5. [PostgreSQL](https://www.postgresql.org/)
 6. [Drizzle ORM](https://drizzle.dev/)
