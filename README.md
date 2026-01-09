@@ -4,13 +4,13 @@ The architecture follows the repository pattern to centralize and abstract the d
 The application includes API routes for selected operations, while certain functionalities use server actions as examples of direct database interaction. 
 PostgreSQL will serve as the primary database, accessed through Drizzle ORM.
 Authentication is implemented using NextAuth.
-The UI relies on shadcn components, wrapped with base styling to enable further customization, with all styling managed through Tailwind CSS.
+The UI relies on Shadcn components, wrapped with base styling to enable further customization, with all styling managed through Tailwind CSS.
 
 # Tech Stack
 
 1. [Next JS](https://nextui.org/) :smile:
 2. [Tailwind CSS](https://tailwindcss.com/)
-3. [ChadCN UI](https://ui.chad.sh/)
+3. [Shadcn UI](https://ui.chad.sh/)
 4. [TypeScript](https://www.typescriptlang.org/)
 5. [PostgreSQL](https://www.postgresql.org/)
 6. [Drizzle ORM](https://drizzle.dev/)
